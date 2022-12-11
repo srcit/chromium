@@ -25,8 +25,8 @@ jobs:
       # https://github.com/docker/setup-qemu-action
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-        # with:
-        #   platforms: 'amd64,arm64,arm'
+        with:
+          platforms: 'amd64,arm64'
 
       # https://github.com/docker/setup-buildx-action
       - name: Set up Docker Buildx
@@ -40,12 +40,12 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push PMS
+      - name: Build and push
         uses: docker/build-push-action@v3
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: chromium:${{ github.sha }}
           
